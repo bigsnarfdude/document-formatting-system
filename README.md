@@ -1,5 +1,6 @@
 # Non-Destructive Document Formatting System
 
+
 A safety-first document formatting system that applies visual-only changes while preserving all content with zero modification risk.
 
 ## 🎯 Overview
