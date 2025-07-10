@@ -50,7 +50,7 @@ Formatted Document (HTML)
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/bigsnarfdude/document-formatting-system
 cd document-formatting-system
 
 # Install dependencies
