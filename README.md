@@ -9,6 +9,7 @@ This system processes Word documents to apply consistent formatting while guaran
 
 ## ✨ Key Features
 
+
 - **🛡️ Zero Content Risk**: Advanced content preservation with SHA-256 fingerprinting
 - **🤖 Smart Safety Classification**: Automatic detection of procedural, technical, numerical, and regulatory content
 - **👁️ Human-in-the-Loop Validation**: Web-based interface for expert review and approval
