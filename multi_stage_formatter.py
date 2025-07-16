@@ -11,6 +11,7 @@ from pathlib import Path
 from docx import Document
 from collections import Counter
 import time
+from config_loader import get_input_path, get_output_path, get_known_path, get_method_config, validate_config, print_config_summary
 
 class MultiStageFormatter:
     """Multi-stage formatter with 3-pass filtering."""
@@ -377,10 +378,27 @@ def compare_results(output_path, known_path):
 
 def main():
     """Main function."""
-    # File paths
-    input_path = "/Users/vincent/Desktop/watson/PPH_original.docx"
-    output_path = "/Users/vincent/Desktop/watson/PPH_claude_multi_stage_formatted.docx"
-    known_path = "/Users/vincent/Desktop/watson/PPH_formatted_final.docx"
+    # Load configuration
+    print("🔧 Loading configuration...")
+    print_config_summary()
+    
+    if not validate_config():
+        print("\n❌ Configuration validation failed. Please check config.yaml")
+        return
+    
+    # Get paths from configuration
+    input_path = get_input_path()
+    output_path = get_output_path('multi_stage')
+    known_path = get_known_path()
+    
+    # Get method-specific configuration
+    method_config = get_method_config('multi_stage')
+    debug = method_config.get('debug', True)
+    show_filtering_details = method_config.get('show_filtering_details', True)
+    
+    print(f"\n🚀 Starting Multi-Stage Formatter...")
+    print(f"   Input: {input_path}")
+    print(f"   Output: {output_path}")
     
     # Process document
     formatter = MultiStageFormatter()
@@ -396,20 +414,30 @@ def main():
         percentage = (count / processed) * 100 if processed > 0 else 0
         print(f"  {style}: {count} ({percentage:.1f}%)")
     
-    # Show debug info
-    formatter.show_debug_info()
+    # Show debug info if enabled
+    if debug:
+        formatter.show_debug_info()
     
-    # Compare with target
-    para_diff, style_diff = compare_results(output_path, known_path)
-    
-    print(f"\n🎯 Multi-Stage Assessment:")
-    print(f"3-stage filtering: {para_diff} paragraph gap, {len(style_counts)} styles")
-    print(f"Previous attempts: 5-108 paragraph gap")
-    
-    if para_diff <= 20:
-        print("✅ SUCCESS! Multi-stage filtering achieved target")
+    # Compare with target if available
+    if known_path and Path(known_path).exists():
+        para_diff, style_diff = compare_results(output_path, known_path)
     else:
-        print("📈 Progress with systematic 3-stage approach")
+        para_diff, style_diff = None, None
+    
+    # Show assessment if comparison was possible
+    if para_diff is not None:
+        print(f"\n🎯 Multi-Stage Assessment:")
+        print(f"3-stage filtering: {para_diff} paragraph gap, {len(style_counts)} styles")
+        print(f"Previous attempts: 5-108 paragraph gap")
+        
+        if para_diff <= 20:
+            print("✅ SUCCESS! Multi-stage filtering achieved target")
+        else:
+            print("📈 Progress with systematic 3-stage approach")
+    else:
+        print(f"\n✅ Document processed successfully!")
+        print(f"Styles achieved: {len(style_counts)}")
+        print(f"(No target document available for comparison)")
 
 if __name__ == '__main__':
     main()

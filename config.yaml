@@ -1,0 +1,36 @@
+# Document Formatting System Configuration
+# Update these paths to match your document locations
+
+# Input and output paths
+input_path: "/Users/vincent/Desktop/watson/PPH_original.docx"
+output_path: "/Users/vincent/Desktop/watson/PPH_claude_formatted.docx"
+known_path: "/Users/vincent/Desktop/watson/PPH_formatted_final.docx"
+
+# Processing options
+default_method: "multi-stage"  # Options: "multi-stage", "pattern-based", "overnight-llm"
+
+# Multi-stage formatter settings
+multi_stage:
+  output_path: "/Users/vincent/Desktop/watson/PPH_claude_multi_stage_formatted.docx"
+  debug: true
+  show_filtering_details: true
+
+# Pattern-based formatter settings
+pattern_based:
+  output_path: "/Users/vincent/Desktop/watson/PPH_claude_pattern_based_formatted.docx"
+  strict_matching: true
+
+# Overnight LLM formatter settings
+overnight_llm:
+  output_path: "/Users/vincent/Desktop/watson/PPH_claude_overnight_llm_formatted.docx"
+  model_host: "http://localhost:11434"
+  model_name: "gemma3:27b-it-qat"
+  temperature: 0.1
+  timeout: 20
+  save_progress_every: 50
+
+# Analysis settings
+analysis:
+  enable_comparison: true
+  show_debug_info: true
+  export_metrics: true
