@@ -1,0 +1,56 @@
+/* Debug CSS to force visibility with BLACK text */
+header {
+    background: #f8fafc !important;
+    color: black !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+}
+
+header h1 {
+    color: black !important;
+    background: none !important;
+    background-image: none !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
+    -webkit-text-fill-color: black !important;
+    text-fill-color: black !important;
+}
+
+header button {
+    color: black !important;
+    background: #e2e8f0 !important;
+    border: 2px solid #94a3b8 !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
+    -webkit-text-fill-color: black !important;
+    font-weight: bold !important;
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
+}
+
+/* Nuclear option - force everything in header to be BLACK */
+header, header *, header h1, header button, header div {
+    color: black !important;
+    -webkit-text-fill-color: black !important;
+}
+
+/* Specific button overrides */
+#upload-btn, #export-btn {
+    background: #f1f5f9 !important;
+    color: black !important;
+    border: 2px solid #475569 !important;
+    font-weight: bold !important;
+    padding: 10px 20px !important;
+    border-radius: 8px !important;
+    text-shadow: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    -webkit-text-fill-color: black !important;
+    background-image: none !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
+}
+
+#upload-btn:hover, #export-btn:hover {
+    background: #e2e8f0 !important;
+    color: black !important;
+    -webkit-text-fill-color: black !important;
+}

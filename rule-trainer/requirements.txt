@@ -1,0 +1,12 @@
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.0
+python-multipart==0.0.6
+python-docx==1.1.0
+werkzeug==3.0.1
+aiofiles==23.2.1
+
+# Optional dependencies for enhanced functionality
+# PyMuPDF==1.23.8  # For PDF processing
+# python-magic==0.4.27  # For MIME type detection
+# google-generativeai==0.3.2  # For LLM integration

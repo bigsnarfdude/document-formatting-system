@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Formatting Rule Trainer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="debug.css">
+</head>
+<body class="bg-gradient-to-br from-slate-100 to-gray-200 font-sans min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-slate-800 to-slate-700 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-white">
+                Document Formatting Rule Trainer
+            </h1>
+            <div class="flex items-center space-x-4">
+                <button id="upload-btn" class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white px-4 py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg font-semibold">
+                    Upload Document
+                </button>
+                <button id="export-btn" class="bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white px-4 py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg font-semibold">
+                    Export Rules
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-4 h-screen flex flex-col">
+        <!-- Document Comparison Panes -->
+        <div class="flex-1 flex gap-4 mb-4">
+            <!-- Original Document -->
+            <div class="flex-1 bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-3 font-semibold">
+                    Original Document (Click to Select)
+                </div>
+                <div id="original-document" class="p-4 h-full overflow-y-auto bg-gradient-to-br from-orange-50 to-red-50">
+                    <div class="text-center text-gray-500 mt-8">
+                        <p>Upload a document or load example to get started</p>
+                        <button id="load-example-btn" class="mt-4 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white px-6 py-3 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg font-semibold">
+                            Load Example
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Target Document -->
+            <div class="flex-1 bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white p-3 font-semibold">
+                    Target Document (With Rules Applied)
+                </div>
+                <div id="target-document" class="p-4 h-full overflow-y-auto bg-gradient-to-br from-emerald-50 to-teal-50">
+                    <div class="text-center text-gray-500 mt-8">
+                        <p>Rules will be applied and shown here</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rules Panel -->
+            <div class="w-80 bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-violet-500 to-purple-500 text-white p-3 font-semibold">
+                    Active Rules
+                </div>
+                <div id="rules-panel" class="p-4 h-full overflow-y-auto bg-gradient-to-br from-violet-50 to-purple-50">
+                    <div class="text-center text-gray-500 mt-8">
+                        <p>No rules created yet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Interface -->
+        <div class="bg-white rounded-lg shadow-lg h-64 flex flex-col">
+            <div class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-3 font-semibold">
+                Rule Creation Chat
+            </div>
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto bg-gradient-to-br from-blue-50 to-indigo-50">
+                <div class="message system-message">
+                    <div class="message-content">
+                        Welcome! Click on any paragraph in the original document and tell me how it should be formatted.
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t bg-gradient-to-r from-slate-50 to-gray-50">
+                <div class="flex gap-2">
+                    <input 
+                        type="text" 
+                        id="chat-input" 
+                        placeholder="Select a paragraph and describe how it should be formatted..."
+                        class="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                        disabled
+                    >
+                    <button 
+                        id="send-btn" 
+                        class="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white px-6 py-2 rounded-lg disabled:opacity-50 transition-all duration-300 shadow-md hover:shadow-lg"
+                        disabled
+                    >
+                        Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- File Upload Modal -->
+    <div id="upload-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+            <h2 class="text-xl font-bold mb-4">Upload Document</h2>
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                <input type="file" id="file-input" accept=".pdf,.docx" class="hidden">
+                <label for="file-input" class="cursor-pointer">
+                    <div class="text-gray-600">
+                        <svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <p class="text-lg">Click to upload or drag and drop</p>
+                        <p class="text-sm text-gray-500">PDF or DOCX files only (max 10MB)</p>
+                    </div>
+                </label>
+            </div>
+            <div class="flex justify-end gap-2 mt-6">
+                <button id="cancel-upload" class="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</button>
+                <button id="confirm-upload" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded disabled:opacity-50" disabled>Upload</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p class="text-lg">Processing document...</p>
+        </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="bg-gray-200 text-gray-700 text-sm p-2 text-center">
+        <span id="status-text">Ready - Upload a document or load example to begin</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
