@@ -1,6 +1,6 @@
 # Legacy HTML-Based Document Formatting System
 
-This directory contains the original HTML-based document formatting system that has been superseded by the new DOCX-focused approach.
+This directory contains the original HTML-based document formatting system we are working on DOCX-focused approach for now. 
 
 ## ⚠️ Legacy Status
 
