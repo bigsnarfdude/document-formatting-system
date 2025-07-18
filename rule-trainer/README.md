@@ -1,6 +1,6 @@
 # Document Formatting Rule Trainer
 
-A human-in-the-loop tool for creating document formatting rules through visual training.
+A human-in-the-loop tool for creating document formatting rules through visual training with LLM based chat.
 
 ## Quick Start
 
