@@ -2,6 +2,8 @@
 
 A human-in-the-loop tool for creating document formatting rules through visual training with LLM based chat.
 
+
+
 ## Quick Start
 
 1. **Install dependencies:**
