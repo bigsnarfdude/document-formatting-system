@@ -3,7 +3,6 @@
 
 A comprehensive document formatting system that transforms Word documents using multiple AI-powered approaches for optimal structure and styling.
 
-
 ## 🎯 Overview
 
 This system processes DOCX files to apply professional formatting, proper heading structures, and consistent styling while maintaining content integrity. It offers three distinct approaches optimized for different use cases:
